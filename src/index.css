@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+/* Class-strategy dark mode: `.dark` on <html> flips every dark: variant */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+  Two intentional palettes sharing one accent hue.
+  Light: warm cream + deep charcoal ink + ember accent.
+  Dark:  warm near-black + soft bone ink + the same ember, brightened for contrast.
+*/
+:root {
+  --c-bg: #faf7f2;
+  --c-raise: #f1ece3;
+  --c-ink: #201c18;
+  --c-muted: #6d665c;
+  --c-line: #e4ddd1;
+  --c-accent: #c2410c;
+  --c-on-accent: #fff8f3;
+}
+
+.dark {
+  --c-bg: #131110;
+  --c-raise: #1c1917;
+  --c-ink: #f1ece3;
+  --c-muted: #a29a8d;
+  --c-line: #2b2721;
+  --c-accent: #ff7a47;
+  --c-on-accent: #221006;
+}
+
+@theme inline {
+  --color-surface: var(--c-bg);
+  --color-raise: var(--c-raise);
+  --color-ink: var(--c-ink);
+  --color-muted: var(--c-muted);
+  --color-line: var(--c-line);
+  --color-accent: var(--c-accent);
+  --color-on-accent: var(--c-on-accent);
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background-color: var(--c-bg);
+  color: var(--c-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background-color: var(--c-accent);
+  color: var(--c-on-accent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/*
+  `.theming` is added to <html> only while the toggle runs, so color changes
+  cross-fade smoothly without taxing every scroll/hover with global transitions.
+*/
+html.theming,
+html.theming *,
+html.theming *::before,
+html.theming *::after {
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease,
+    border-color 0.35s ease,
+    fill 0.35s ease,
+    stroke 0.35s ease,
+    box-shadow 0.35s ease !important;
+}
+
+@layer components {
+  .container-site {
+    @apply mx-auto w-full max-w-6xl px-6 md:px-10;
+  }
+
+  /* Transition only hover-driven properties; GSAP owns opacity/transform,
+     and CSS transitions on those corrupt its from() value capture. */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold transition-[color,background-color,border-color,box-shadow,translate] duration-300;
+  }
+
+  .btn-primary {
+    @apply bg-accent text-on-accent hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent/25;
+  }
+
+  .btn-ghost {
+    @apply border border-line text-ink hover:-translate-y-0.5 hover:border-accent hover:text-accent;
+  }
+
+  .chip {
+    @apply inline-flex items-center rounded-full border border-line px-3 py-1 text-xs font-medium text-muted transition-colors duration-300;
+  }
+
+  .eyebrow {
+    @apply font-display text-sm font-semibold tracking-[0.22em] text-accent uppercase;
+  }
+}
