@@ -1,3 +1,7 @@
+// Files in public/ are served at the site root — prefix with Vite's base
+// (e.g. "/portfolio/" on GitHub Pages) so paths resolve correctly there too.
+const asset = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
+
 export const siteMeta = {
   name: "Christian A. Espiridion",
   role: "Web Developer & Automation Specialist",
@@ -6,7 +10,7 @@ export const siteMeta = {
   phone: "+639206954789",
   phonePretty: "+63 920 695 4789",
   linkedin: "https://www.linkedin.com/in/espiridion-christian-a-0a2a63254",
-  portrait: "/main-pic.png",
+  portrait: asset("/main-pic.png"),
 };
 
 export const navLinks = [
@@ -39,7 +43,7 @@ export const projects = [
     tags: ["Shopify", "Liquid", "Theme Customization", "Responsive Design"],
     gradient: "from-rose-500 via-orange-400 to-amber-300",
     mark: "Lah",
-    image: "/projects/lahlah.png",
+    image: asset("/projects/lahlah.png"),
   },
   {
     id: "chiro-ads",
@@ -51,7 +55,7 @@ export const projects = [
     tags: ["GoHighLevel", "WordPress", "Google Ads", "CRO"],
     gradient: "from-sky-500 via-blue-500 to-indigo-400",
     mark: "Chiro",
-    image: "/projects/chiro-ads.png",
+    image: asset("/projects/chiro-ads.png"),
   },
   {
     id: "sleep-workshop",
@@ -63,7 +67,7 @@ export const projects = [
     tags: ["GoHighLevel", "CRM Automation", "Landing Page Design", "Automated Workflows"],
     gradient: "from-indigo-600 via-violet-500 to-purple-400",
     mark: "Sleep",
-    image: "/projects/sleep-workshop.png",
+    image: asset("/projects/sleep-workshop.png"),
   },
   {
     id: "nourishu",
@@ -75,7 +79,7 @@ export const projects = [
     tags: ["HTML", "CSS", "JavaScript", "UI/UX"],
     gradient: "from-emerald-500 via-teal-400 to-lime-300",
     mark: "NU",
-    image: "/projects/nourishu.jpg",
+    image: asset("/projects/nourishu.jpg"),
   },
 ];
 

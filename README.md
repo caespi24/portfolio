@@ -28,9 +28,9 @@ npm run preview  # preview the production build
 Project cards use designed gradient placeholders until you add images:
 
 1. Drop your screenshots into `public/projects/` (e.g. `public/projects/lah-lah.webp`).
-2. In [src/data/content.js](src/data/content.js), set the project's `image` field:
+2. In [src/data/content.js](src/data/content.js), set the project's `image` field using the `asset()` helper (this keeps paths working under the GitHub Pages `base`, not just at the site root):
    ```js
-   image: "/projects/lah-lah.webp",
+   image: asset("/projects/lah-lah.webp"),
    ```
 3. Done — the card lazy-loads the image and drops the gradient automatically.
 
